@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int islandPerimeter(vector<vector<int>>& grid) {
+        int W=grid.size(),H=grid[0].size(),sum=0;
+        for(int i=0;i<W;i++)//遍历行
+        {
+            sum+=grid[i][0]+grid[i][H-1];//左右边缘
+                for(int j=0;j<H;j++)
+                {
+                    if(j>0)
+                    {
+                        sum+=grid[i][j]^grid[i][j-1];//看列跳变
+                    }
+                    if(i==0){sum+=grid[0][j]+grid[W-1][j];}//上下边缘（矩形的）
+                    else//if(i>0)
+                    {
+                        sum+=grid[i][j]^grid[i-1][j];
+                    }
+              //  }
+            }
+           
+        }
+        return sum;
+    }
+};

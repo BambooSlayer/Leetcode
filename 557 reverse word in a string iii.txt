@@ -1,0 +1,26 @@
+#include <string>
+class Solution {
+public:
+    string reverseWords(string s) {
+        int Len=s.size();
+        string STR;
+        int FD=Len-1;
+        int i2=0;
+        int i=0;
+        while(i<Len)
+        {
+            for (i=i2;i<=FD;i++)
+            {
+                if(s.at(i)!=32)//if(s.substr(i,1) !=" ")
+                {STR.insert(i2,s,i,1);}
+                else
+                {
+                    STR.insert(i,s,i,1);//这里要改
+                    i2=i+1;  
+                    break;
+                }
+            }
+        }
+        return STR;
+    }
+};

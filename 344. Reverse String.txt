@@ -1,0 +1,25 @@
+/*class Solution {
+public:
+    string reverseString(string s) {
+        string a;
+        int Len=s.size()-1;
+        if(Len<=0){return s;}
+        for(int i=0;i<Len;i++)
+        {s.insert(Len+1,s,i,1);}
+        return s.substr(Len,2*Len+1);
+        
+    }
+};
+*///效率低
+//void swap(string &s2);    //交换当前字符串与s2的值!!
+class Solution {
+public:
+    string reverseString(string s) {
+        int i = 0, j = s.size() - 1;
+        while(i < j){
+            swap(s[i++], s[j--]); //前后交换
+        }
+        
+        return s;
+    }
+};

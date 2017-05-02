@@ -1,0 +1,49 @@
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        if(nums.empty()){return 0;}//真是太容易漏掉空了！
+ 
+int Len=0;
+for(vector<int>::iterator iter=nums.begin(); iter!=nums.end();iter++ )
+{
+     if( *iter != val)
+          {nums[Len]=*iter;Len++;}
+      else
+          {
+              
+             // iter = nums.erase(iter);//不需要擦除，覆盖前面的就好（参考了别人）
+          }//避免野指针[erase的时候会返回下一个有效的的元素，或者是v.end()]
+}
+return Len;
+    }
+};
+/*
+//The order of elements can be changed. 说不定能优化！ 结果变差了……
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        if(nums.empty()){return 0;}//真是太容易漏掉空了！
+int Len=0;
+int Up=1;
+int Down=0;
+sort( nums.begin() , nums.end() );
+int Long=nums.size();
+if( nums[0] > val || nums[Long-1] < val){return Long;}
+if( nums[0] == val && nums[Long-1] == val){return 0;}
+
+for(Down=0; Down<Long;Down++ )
+{ 
+     if(nums[Down] == val)
+          {
+            while(nums[Down+Up] == val && Down+Up<Long)//加了后半才通过的，不然rte
+            {Up++;}
+            nums.erase(nums.begin()+Down,nums.begin()+Down+Up);
+            return nums.size();
+}
+
+//避免野指针[erase的时候会返回下一个有效的的元素，或者是v.end()]
+}
+
+
+    }
+};*/

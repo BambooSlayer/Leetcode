@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> tri;
+        vector<int> num;
+        int mid;
+        if(numRows==0){return tri;}
+        num.push_back(1);
+        tri.push_back(num);
+        if(numRows==1){return tri;}
+        int i=1;
+        int j;
+        while(i<numRows)
+        {
+            num.resize(i);//这里容易导致后面pushback出错……不能写i+1
+            mid=(i)/2;//i
+            j=mid;
+            while(j>0)
+            {
+                num[j]+=num[j-1];
+                num[i-j]=num[j];
+                j--;
+            }
+            num.push_back(1);
+            tri.push_back(num);
+            i++;
+
+        }
+        return tri;
+    }
+};

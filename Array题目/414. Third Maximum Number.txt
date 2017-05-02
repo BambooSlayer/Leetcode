@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) {
+        int Len=nums.size()-1,i=2;
+        sort(nums.begin(),nums.end());
+        while(i!=0 && (Len)>0)
+        {
+            if(nums[Len-1]!=nums[Len]){i--;}
+            Len--;
+        }
+       // return i;
+        if(i==0){ return nums[Len];}
+        else{return nums[nums.size()-1];}
+    }
+};

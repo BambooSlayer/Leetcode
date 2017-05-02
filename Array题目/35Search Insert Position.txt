@@ -1,0 +1,52 @@
+/*方法3 这个只要一行，但是效率没有自己写的高
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+        return lower_bound(nums.begin(), nums.end(), target) - nums.begin();
+    }
+};
+*/
+/*方法2*/
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+       int Len=nums.size();///sizeof(int);
+		//for(i=0;i<Len;i++){
+		if(target>nums[Len-1]){return Len;}//这里不能打成》=，会出错：【1】 1
+		if(target<=nums[0]){return 0;}
+		int Up=Len-1;
+		int Down=0;
+		int Mid;
+		while(Up-Down>1){
+			Mid=(Up+Down)/2;
+			if(nums[Mid]==target){return Mid;}
+			else if(nums[Mid]>target){ Up=Mid; }
+			else{Down=Mid;}
+			
+			//if(nums[i]/target)
+		}
+		if(nums[Down]==target){return Down;}
+		else {return Up;}
+    }
+
+};
+//*/
+/* 方法2
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+       if(target<=nums[0]){return 0;}
+       int Up=nums.size()-1;
+		if(target>nums[Up]){return Up+1;}//这里不能打成》=，会出错：【1】 1
+		int Down=0,Mid;
+		while(Up>=Down){ 
+			Mid=(Up+Down+1)/2;//+1
+			if(nums[Mid]==target){return Mid;}
+			else if(nums[Mid]>target){ Up=Mid-1; }//这里改了-1
+			else{Down=Mid+1;}
+		}
+		return Down;
+    }
+
+};
+*/

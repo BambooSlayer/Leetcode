@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int Len=prices.size();
+        //第一次没考虑到空数组啊！！
+        if(Len==0){return 0;}
+        vector<int> min;//
+        vector<int> max;//
+        int MAX=prices[Len-1];
+        int MIN=prices[0];
+        //min.push_back(MIN);
+        for(int i=0;i<(Len);i++)
+        {
+            if(prices[i]<MIN)
+            {MIN=prices[i];}
+            min.push_back(MIN);
+            if(prices[Len-1-i]>MAX)
+            {MAX=prices[Len-1-i];}
+            max.push_back(MAX);
+        }
+        //max.push_back(prices[Len-i]);
+        MAX=max[0]-min[Len-1];
+        int Now;
+        for(int i=1;i<(Len);i++)
+        {
+            Now=max[i]-min[Len-1-i];
+            if(Now>MAX)
+            {MAX=Now;}
+        }
+        if(MAX>0){ return MAX;}
+        else{return 0;}
+        
+    }
+    };

@@ -1,0 +1,63 @@
+struct node
+{
+    int num;
+    int No;
+};
+int comp(const void *a,const void *b)//int comp(void *a,void *b)
+{
+    //return (*(struct node *)a).num - (*(struct node *)b).num;
+    return (*(node *)a).num > (*(node *)b).num ? 1 : -1;
+};//!!!这家伙必须拿到外面才行，因为需要用Qsort来调用！
+class Solution {
+public:
+
+
+
+bool containsNearbyDuplicate(vector<int>& nums, int k) {
+    
+        //就是找到最近的两个相同量的距离（比k+1小的）,没有重复的也算false
+        int Len=nums.size(),n;
+        if(k<1||Len<2){return false;}//不能忘了0啊！
+        //vector<int> numsnew(nums);
+        //vector<int> index(Len,0);
+        //sort(numsnew.begin(),numsnew.end());
+
+
+    struct node arry[Len];
+    for(int i = 0; i < Len;++i)
+    {
+        arry[i].num =nums[i];
+        arry[i].No = i;
+    }
+    qsort(arry,Len,sizeof(arry[0]),comp);//非静态成员函数引用
+
+        
+        if(k>=(Len-1) ){//疏忽：没有重复的也算false//这个情况下有重复就算赢，没重复就算输
+            if (arry[Len-1].num-arry[0].num<Len-1){return true;} 
+            for(int i=0;i<Len-1;i++)
+            {
+                if(arry[i].num==arry[i+1].num){return true;}
+            }
+            return false;
+        }
+        else
+        {
+        for(int i=0;i<Len-1;i++)
+            {
+                n=1;
+                while(arry[i].num==arry[i+n].num)
+                    {
+                        if(arry[i].No-arry[i+n].No <=k && arry[i].No-arry[i+n].No >=-k)
+                        {return true;}
+                        n++;
+                        if(i+n>Len-1){break;}
+                    }
+
+            }
+        return false;
+            
+        }
+
+    }
+
+};

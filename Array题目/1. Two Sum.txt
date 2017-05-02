@@ -1,0 +1,35 @@
+#define countof_macro(x) (sizeof((x)) / sizeof(x)[0])
+struct node
+{
+    int num;
+    int No;
+};
+int comp(const void *a,const void *b)//int comp(void *a,void *b)
+{
+    //return (*(struct node *)a).num - (*(struct node *)b).num;
+    return (*(node *)a).num > (*(node *)b).num ? 1 : -1;
+};//!!!这家伙必须拿到外面才行，因为需要用Qsort来调用！
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        int i=0,j=1;
+        int Len=nums.size();
+    struct node arry[Len];
+    for(int i = 0; i < Len;++i)
+    {
+        arry[i].num =nums[i];
+        arry[i].No = i;
+    }
+    qsort(arry,Len,sizeof(arry[0]),comp);//非静态成员函数引用
+    
+        while(arry[i].num+arry[j].num!=target){
+            if(arry[i].num+arry[j].num>target ||j>=Len-1)
+            {i++;j=i+1;}
+            else{j++;}
+        }
+        vector<int> a;
+        a.push_back(arry[i].No);
+        a.push_back(arry[j].No);
+        return a;
+    }
+};

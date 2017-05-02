@@ -1,0 +1,12 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int Len=prices.size();
+        int DE=0,SUM=0;
+        for(int i=0;i<Len-1;i++)
+        {
+            if(prices[i+1]>prices[i]){SUM+=prices[i+1]-prices[i];}
+        }
+        return SUM;
+    }
+};

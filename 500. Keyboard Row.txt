@@ -1,0 +1,53 @@
+class Solution {
+public:
+    vector<string> findWords(vector<string>& words) {
+         string str1="qwertyuiopQWERTYUIOP";
+         string str2="asdfghjklASDFGHJKL";
+         string str3="zxcvbnmZXCVBNM";
+         string W;
+         int Len2=words.size();
+         int len;
+         int t,a=0;
+         for (int i=0;i<Len2;i++)
+         {
+             W=words[i-a];//删除掉之后会出问题！顺序不对了
+             len=W.size();
+             if(len==1){continue;}
+             else if(str1.find(W.at(0),0)!=-1)//npos=-1 第一个，在第一行
+             {
+                 for(t=1;t<len;t++)//会有问题！t=1 -> 单个字母的情况没考虑,根本没1！
+                 {
+                 if(str1.find(W.at(t),0)==-1)//有不在第一行的
+                    {
+                         words.erase(words.begin()+i-a);a++;//删除掉之后会出问题！顺序不对了  所以要加-a
+                         break;
+                    }
+                 }
+             }
+             else if(str2.find(W.at(0),0)!=-1)//npos=-1 第一个，在第2行
+             {
+                 for(t=1;t<len;t++)
+                 {
+                 if(str2.find(W.at(t),0)==-1)//有不在第一行的
+                    {
+                         words.erase(words.begin()+i-a);a++;
+                         break;
+                    }
+                 }
+             }
+             else//npos=-1 第一个，在3行
+             {
+                 if(len==1){continue;}
+                 for(t=1;t<len;t++)
+                 {
+                 if(str3.find(W.at(t),0)==-1)//有不在第一行的
+                    {
+                         words.erase(words.begin()+i-a);a++;
+                         break;
+                    }
+                 }
+             }
+         }
+         return words;
+    }
+};

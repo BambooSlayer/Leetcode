@@ -1,0 +1,56 @@
+struct node
+{
+    int num;
+    int No;
+};
+int comp(const void *a,const void *b)//int comp(void *a,void *b)
+{
+    //return (*(struct node *)a).num - (*(struct node *)b).num;
+    return (*(node *)a).num > (*(node *)b).num ? 1 : -1;
+};//!!!这家伙必须拿到外面才行，因为需要用Qsort来调用！
+
+class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& findNums, vector<int>& nums) {
+    int Len=findNums.size();          
+    if(Len==0){return findNums;}//空的情况！
+    int Len2=nums.size();
+    vector<int> FN(Len,-1); 
+    struct node arry_findNums[Len];
+    for(int i = 0; i < Len;++i)
+    {
+        arry_findNums[i].num =findNums[i];
+        arry_findNums[i].No = i;
+    }
+    qsort(arry_findNums,Len,sizeof(arry_findNums[0]),comp);//非静态成员函数引用
+    
+    struct node arry_nums[Len2];
+    for(int i = 0; i < Len2;++i)
+    {
+        arry_nums[i].num =nums[i];
+        arry_nums[i].No = i;
+    }
+    qsort(arry_nums,Len2,sizeof(arry_nums[0]),comp);//非静态成员函数引用
+    
+
+    for(int n=0;n<Len;n++)//遍历arry_findNums:n
+    {
+        for(int i=0;i<Len2 && n<Len;i++)//遍历arry_nums:i 找和FD[n]相同的
+        {
+            if(arry_findNums[n].num==arry_nums[i].num)//找到对应位置
+            {
+                for(int fd=arry_nums[i].No;fd<Len2;fd++)//找arry_nums后较大的
+                {
+                    if(nums[fd]>arry_findNums[n].num){FN[arry_findNums[n].No]=nums[fd];break;}
+                    
+                }
+                //到这儿说明没有符合标准的 or 找到并break出来了
+                n++;
+
+            }
+        }  
+        
+    }      
+return FN;
+}
+};

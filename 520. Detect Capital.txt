@@ -1,0 +1,36 @@
+class Solution {
+public:
+    bool detectCapitalUse(string word) {
+        int Len=word.size();
+        int i=2;
+        if(Len<2){return true;}
+        if(word.at(1)<=90)//65~90 大写 97~122 小写
+        {
+            if(word.at(0)>=97)//第二个大写，但是第一个是小写
+            {return false;}
+            else//前两个是大写。后面都应该是大写
+            {
+                while(i<Len)
+                {
+                    if(word.at(i)>=97)//65~90 大写 97~122 小写
+                    {
+                        return false;
+                    }
+                    i++;
+                }
+            }
+        }
+        else
+        {
+            while(i<Len)
+                {
+                    if(word.at(i)<=90)//65~90 大写 97~122 小写
+                    {
+                        return false;
+                    }
+                    i++;
+                }
+        }
+        return true;
+    }
+};

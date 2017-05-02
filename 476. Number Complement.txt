@@ -1,0 +1,8 @@
+class Solution {
+public:
+    int findComplement(int num) {
+        int t=2;
+        while(num>(t-1)){t*=2;}
+        return num^(t-1);
+    }
+};

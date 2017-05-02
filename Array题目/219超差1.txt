@@ -1,0 +1,70 @@
+class Solution {
+public:
+
+void quickSort(vector<int>& s, int l, int r,vector<int>& index)
+{
+	if (l< r)
+	{      
+		int i = l, j = r, x = s[l], y = index[l];
+		while (i < j)
+		{
+			while(i < j && s[j]>= x) // 从右向左找第一个小于x的数
+				{j--; }
+			if(i < j)
+			    {index[i]=index[j];
+				s[i++] = s[j];}
+				
+			while(i < j && s[i]< x) // 从左向右找第一个大于等于x的数
+				{i++; }
+			if(i < j)
+				{index[j]=index[i];
+				    s[j--] = s[i];}
+		}
+		index[i]=y;
+		s[i] = x;
+		quickSort(s, l, i - 1,index); // 递归调用
+		quickSort(s, i + 1, r,index);
+	}
+};
+
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        //就是找到最近的两个相同量的距离（比k+1小的）,没有重复的也算false
+        int Len=nums.size(),n;
+        if(k<1||Len<2){return false;}//不能忘了0啊！
+        vector<int> numsnew(nums);
+        vector<int> index(Len,0);
+        //sort(numsnew.begin(),numsnew.end());
+        for(int time=0;time<Len;time++){index[time]=time;}
+        quickSort(numsnew,0,Len-1,index);
+        
+        if(k>=(Len-1) ){//疏忽：没有重复的也算false//这个情况下有重复就算赢，没重复就算输
+            if (numsnew[Len-1]-numsnew[0]<Len-1){return true;} 
+            for(int i=0;i<Len-1;i++)
+            {
+                if(numsnew[i]==numsnew[i+1]){return true;}
+            }
+            return false;
+        }
+        
+        for(int i=0;i<Len-1;i++)
+            {
+                n=1;
+                while(numsnew[i]==numsnew[i+n])
+                    {
+                        if(index[i]-index[i+n]<=k && index[i]-index[i+n]>=-k)
+                        {return true;}
+                        n++;
+                    }
+
+            }
+        return false;
+       /* for(int n=1;n<=k;n++)
+        {
+            for(int i=0;i<Len-n;i++)//
+            {
+                    if(nums[i+n]==nums[i]){return true;}
+            }
+        }    
+        return false;*/
+    }
+};

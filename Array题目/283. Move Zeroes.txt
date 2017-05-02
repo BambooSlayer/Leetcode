@@ -1,0 +1,18 @@
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int Len=nums.size(),sum=0;
+        for(int i=0;i<Len-sum;)//这里i++会跳过！
+        {
+            if(nums[i]==0)
+            {
+                nums.erase(nums.begin()+i,nums.begin()+i+1);
+                nums.push_back(0);
+                sum++;
+            }
+            else
+            {i++;}
+        }
+        return;
+    }
+};

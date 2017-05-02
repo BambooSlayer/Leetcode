@@ -1,0 +1,16 @@
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        int Len=nums.size();        
+        if(Len<2){return false;} //一定要考虑到空啊！
+        sort( nums.begin() , nums.end() );
+        //for尽量减少计算
+        if(Len-1>nums[Len-1]-nums[0]){return true;}//数字长度比最大减最小还要大 如1,2,3,4就是Len4的极限
+        //for尽量减少计算
+        for(int i=0;i<Len-1;i++)
+        {
+            if(nums[i+1]==nums[i]){return true;}
+        }
+        return false;
+    }
+};

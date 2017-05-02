@@ -1,0 +1,10 @@
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        k=nums.size()-k%nums.size();//要考虑到旋转超过一周！
+        vector<int> v1(nums.begin(), nums.begin() +k);
+        nums.insert(nums.end(),v1.begin(),v1.end());
+        nums.erase(nums.begin(),nums.begin()+k);
+        return;
+    }
+};

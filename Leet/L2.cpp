@@ -1,0 +1,56 @@
+#include <stdio.h>  
+#include "iostream"
+#include <vector>
+#include<string>
+#include <algorithm>
+using namespace std;
+class Solution {
+public:
+    vector<int> getRow(int rowIndex) {
+       vector<int> NM((rowIndex+1),1);
+	   //vector<int> NM1((rowIndex)/2+1,1);
+	   //vector<int> NM2((rowIndex)/2+1,1);
+	   unsigned long int Son1;
+	    unsigned long int  Son, Mom;//int Son=rowIndex,Mom=1;
+		NM[1]=rowIndex;
+		NM[rowIndex-1]=rowIndex;
+		//if(rowIndex>3){	NM[2]=(rowIndex+2-i)*(rowIndex+1-i)/2;}
+        //for(int i=3;i<(rowIndex+1)/2+1;i++)
+		//{
+			
+			for(int m=2;m<(rowIndex)/2+1;m++)
+			{
+				//Son*=rowIndex-m+1;
+				//Mom*=m;						//这里写法是错的
+				//Son=(rowIndex-m+1)/(1.0*m);
+				
+				if(m>10){
+				Son=(NM[m-1]/10000)/m;//*(rowIndex-m+1);//Son/Mom;//这里乘的顺序很重要
+				Son=Son*(rowIndex-m+1);
+				Mom=((NM[m-1] % 10000 + ((NM[m-1]/10000)% m) *10000)*(rowIndex-m+1) );
+				Mom=Mom/m;
+				NM[m]=Son*10000+Mom;
+				NM[rowIndex-m]=NM[m];
+				}
+				else{
+				    Son1=NM[m-1]*(rowIndex-m+1);//Son/Mom;//这里乘的顺序很重要
+				    NM[m]=Son1/m;
+				    NM[rowIndex-m]=NM[m];
+				}
+			}
+
+		//reverse_copy(NM.begin(),NM.end(),NM1.end());
+		//merge(NM1.begin(),NM1.end(),NM2.begin(),NM2.end(),NM.begin());
+        return NM; 
+        
+    }
+};
+
+int main()
+{
+
+ //getRow(6).push_back(s);
+Solution a;
+vector<int> NM=a.getRow(32); 
+    return 0;
+}

@@ -1,0 +1,33 @@
+string int2str(const int &int_temp)
+{
+        stringstream stream;
+        stream<<int_temp;
+        return stream.str();   //此处也可以用 stream>>string_temp
+}
+class Solution {
+public:
+    vector<string> fizzBuzz(int n) {
+        vector<string> v;
+        int a,b;
+        for(int i=1;i<=n;i++)
+        {
+           // a=i%5;b=i%3;
+            if(i%5==0)
+                {
+                    if(i%3==0)
+                    {
+                        v.push_back("FizzBuzz");continue;
+                    }
+                    v.push_back("Buzz");continue;
+                }
+            
+            else if(i%3==0)
+            {
+                v.push_back("Fizz");continue;
+            }
+            v.push_back(int2str(i));
+        }
+        
+        return v;
+    }
+};

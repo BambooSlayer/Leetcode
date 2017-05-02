@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        int Len=nums.size();//¿Ï¶¨ÊÇÆæÊý
+        if(Len<2){return nums[0];}
+        sort(nums.begin(),nums.end());
+        int Up=Len-1;
+        int Mid=(Up)/2/2*2;
+        int Low=0;
+        while(1)
+        {
+            if(Up-Low<5){break;}
+        if(nums[Mid]!=nums[Mid+1])
+        {
+            if(Mid==0){return nums[Mid];}
+            else
+            {
+                Up=Mid;
+                
+            }
+        }
+        else 
+        {
+            if(Mid+1==Len-1){return nums[Mid+1];}
+            else
+            {
+                Low=Mid;
+            }
+        }
+        Mid=(Up+Low)/2/2*2;
+        }
+        for(int i=Low;i<=Up;i+=2)
+        {
+            if(nums[i]!=nums[i+1]){return nums[i];}
+        }
+    }
+};
