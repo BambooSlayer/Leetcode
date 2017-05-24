@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int reverse(int x) {
+        int y=0;//,yo=0;
+        if(x>=0)
+        {
+            if(x>1000000000 && x%10>4){return 0;}
+           while(x)
+           {
+               //yo=y;
+               y*=10;
+               y+=x%10;
+               x=x/10;
+               if(y<0){return 0;}
+           }
+           
+           //if(y<0){return 0;}
+           return y;
+        }
+        else
+        {
+            x=-x;if(x>1000000000 && x%10>4){return 0;}
+           while(x)
+           {
+               //yo=y;
+               y*=10;
+               y-=x%10;
+               x=x/10;
+               if(y>0){return 0;}
+           }
+           return y;
+        }
+    }
+};
