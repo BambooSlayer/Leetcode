@@ -3,44 +3,44 @@ public:
     bool isPalindrome(int x) {
         if(x<0){return false;}
         if(x<10){return true;}
-        if(x>=(10^9))
+        if(x>=1000000000)
         {
-            if(x%10!=x/(10^9)){return false;}//traped?  not matlab!
-            x=(x%(10^9))/10;
+            if(x%10!=x/1000000000){return false;}//traped?  not matlab!
+            x=(x%1000000000)/10;
         }
-        if((x>=(10^8)))
+        if((x>=100000000))
         {
-            if(x%10!=x/(10^8)){return false;}
-            x=(x%(10^8))/10;
+            if(x%10!=x/100000000){return false;}
+            x=(x%100000000)/10;
         }
-        if((x>=(10^7)))
+        if((x>=10000000))
         {
-            if(x%10!=x/(10^7)){return false;}
-            x=(x%(10^7))/10;
+            if(x%10!=x/10000000){return false;}
+            x=(x%10000000)/10;
         }
-        if((x>=(10^6)))
+        if((x>=1000000))
         {
-            if(x%10!=x/(10^6)){return false;}
-            x=(x%(10^6))/10;
+            if(x%10!=x/1000000){return false;}
+            x=(x%1000000)/10;
         }
-        if((x>=(10^5)))
+        if((x>=100000))
         {
-            if((x%10)!=x/(10^5)){return false;}
-            x=(x%(10^5))/10;
+            if((x%10)!=x/100000){return false;}
+            x=(x%100000)/10;
         }
-        if((x>=(10^4)))
+        if((x>=10000))
         {
-            if(x%10!=x/(10^4)){return false;}
-            x=(x%((10^4)))/10;
+            if(x%10!=x/10000){return false;}
+            x=(x%(10000))/10;
         }
-        if((x>=(10^3)))
+        if((x>=1000))
         {
-            if(x%10!=x/((10^3))){return false;}
-            x=(x%((10^3)))/10;
+            if(x%10!=x/(1000)){return false;}
+            x=(x%(1000))/10;
         }
         if(x<10){return true;}
-        if(x<(10^2)){if(x%10==x/10){return true;}else{return false;}}
-        if(x<(10^3)){if(x%10==x/100){return true;}else{return false;}}
+        if(x<100){if(x%10==x/10){return true;}else{return false;}}
+        if(x<1000){if(x%10==x/100){return true;}else{return false;}}
 
     }
 };
