@@ -1,0 +1,30 @@
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        //compare(1, int n,const string &s,int pos2,int n2)
+        //substr(1,int n = npos) const;//返回pos开始的n个字符组成的字符串
+        
+        int num= strs.size();
+        if(num==0){return "";}
+        int L=0;
+        string str1=strs.at(0);
+        if(num==1)
+        {
+            return strs.at(0);
+        }
+        for(L=0;L<str1.length();L++)
+        {
+            for(int i=1;i<num;i++)
+            {
+                if(strs.at(i).length()<L)return str1.substr(0,L);
+               if(strs.at(i).compare(0,L+1,str1,0,L+1)!=0)return str1.substr(0,L);
+               
+               // compare(1, int n,const string &s,int pos2,int n2)
+            }
+            
+        }
+        //int i=1;
+        //while
+        return strs.at(0).substr(0,L);
+    }
+};
