@@ -1,0 +1,28 @@
+class Solution {
+public:
+    string countAndSay(int n) {
+        string s_old,s,s1,sn;
+        int count=0,Len;//,l;
+        s="1";
+        if(n==1)return s;
+        s1="";
+        for(int i=2;i<=n;i++)
+        {
+            s_old=s;
+            s="";
+            Len=s_old.length();
+            
+            for(int l=0;l<Len;l+=count)
+            {
+                s1=s_old.substr(l,1);
+                count=1;
+                while(((count+l)<Len) && (s_old.compare(l+count,1,s1)==0)){count++;}
+                
+                s+=to_string(count);
+                s+=s1;
+            }
+            
+        }
+        return s;
+    }
+};
