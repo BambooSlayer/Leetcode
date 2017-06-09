@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int mySqrt(int x) {
+        unsigned long long Mid=0;
+        unsigned long long Up=(x+1)/2;
+        unsigned long long Low=0;
+        unsigned long long Sum=0;
+        while(Low<Up)
+        {
+            Mid=(Low/2+Up/2);//to large if (Low+Up)/2
+            Sum=Mid*Mid;
+            if(x==Sum){return Mid;}
+            else if(x>Sum){Low=Mid+1;}
+            else{Up=Mid-1;}
+        }
+        if(Low*Low>x){return Low-1;}
+        return Low;
+    }
+};
