@@ -1,0 +1,49 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> levelOrderBottom(TreeNode* root) {
+        //if(root==NULL)return NULL;
+        vector<vector<int>> vec;
+        vector<vector<int>>* vecp=&vec;
+        vector<int> v;
+        
+        v.push_back(root->val);
+        vec.insert(vec.begin(),v);
+        Bottom(root, vec.begin(), vecp);
+        //return Bottom(root,vec);//vec;
+        return vec;
+        ///vec.insert(vec.begin(),Bottom(root));
+        ///if(root->left!=NULL && root->right!=NULL){vec.insert(vec.begin(),Bottom(root->left)+Bottom(root->right));}
+        ///else if(root->left!=NULL){vec.insert(vec.begin(),Bottom(root->left));}
+        ///else if(root->right!=NULL){vec.insert(vec.begin(),Bottom(root->right));}
+        
+    }
+    //vector<vector<int>>  Bottom2(TreeNode* root,) {
+    //vector<int>
+    void  Bottom(TreeNode* root,vector<vector<int>>::iterator beg,vector<vector<int>>* vec) {//尝试用迭代器和指针
+        vector<int> v;
+        //vec.insert(vec.begin(),v);
+        if(root->left!=NULL)
+        {
+            v.push_back(root->left->val);
+        }
+        if(root->right!=NULL)
+        {
+            v.push_back(root->right->val);
+        }
+        //vec[0]=vec[0]+v;
+        //vec.insert(vec.begin(),v);
+        //return v;
+        (*vec).insert(beg,v);
+        return;
+    
+    }
+};
