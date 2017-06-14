@@ -7,18 +7,25 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+
 class Solution {
 public:
+    int n;
     vector<vector<int>> levelOrderBottom(TreeNode* root) {
         
         vector<vector<int>> vec;
+        vec.reserve(1000000);//动态分配空间！
         vector<vector<int>>* vecp=&vec;
         vector<int> v;
         if(root==NULL){}
         else
-        {v.push_back(root->val);
+        {//v.push_back(root->val);
         vec.insert(vec.begin(),v);
-        Bottom(root, vec.begin(), vecp);}
+        vec[0].push_back(root->val);
+        n=1;
+        //vec.insert(vec.begin(),v);
+        Bottom(root, vecp,2);
+        }
         //return Bottom(root,vec);//vec;
         return vec;
         ///vec.insert(vec.begin(),Bottom(root));
@@ -29,26 +36,35 @@ public:
     }
     //vector<vector<int>>  Bottom2(TreeNode* root,) {
     //vector<int>
-    vector<vector<int>>::iterator Bottom(TreeNode* root,vector<vector<int>>::iterator beg,vector<vector<int>>* vec) {//尝试用迭代器和指针
-        if(root->left!=NULL) {beg=Bottom(root->left, beg, vec);}
-        if(root->right!=NULL) {beg=Bottom(root->right, beg, vec);}//加上beg的调整，终于对了
+    //vector<vector<int>>::iterator Bottom(TreeNode* root,vector<vector<int>>::iterator beg,vector<vector<int>>* vec,int i)
+    void Bottom(TreeNode* root,vector<vector<int>>* vec,int i){//尝试用迭代器和指针
+
+        
         if(root->left!=NULL || root->right!=NULL)//检查这里！为啥迭代失误 RTE
         {
-            vector<int> v;
-            //vec.insert(vec.begin(),v);
+            if(i>n)
+            {
+                vector<int> v;
+                //vec.insert(vec.begin(),v);
+                (*vec).insert((*vec).begin(),v);
+                n++;
+            }
             if(root->left!=NULL)
             {
-                v.push_back(root->left->val);
+                (*vec)[n-i].push_back(root->left->val);//v.push_back(root->left->val);
             }
             if(root->right!=NULL)
             {
-                v.push_back(root->right->val);
+                (*vec)[n-i].push_back(root->right->val);//v.push_back(root->right->val);
             }
-            (*vec).insert(beg,v);
-            beg=(*vec).begin();
-            v.clear();
+            
+            //beg=(*vec).begin();
+            //v.clear();
+            
         }
-        return beg;
+        if(root->left!=NULL) {Bottom(root->left, vec,i+1);}
+        if(root->right!=NULL) {Bottom(root->right, vec,i+1);}
+        return;
     
     }
 };
