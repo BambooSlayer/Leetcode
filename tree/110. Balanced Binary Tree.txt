@@ -10,23 +10,36 @@
 class Solution {
 public:
     bool isBalanced(TreeNode* root) {
-        if(root==NULL)return true;
-        int sl=shortlen(root,0);
-        if((sl+1)<longlen(root,sl,0))return false;
+        if(root==NULL)
+        {return true;}
+        //int sl=shortlen(root,0);
+        if(longlen(root,1)==0)//这里是0就不行……？
+        {return false;}
         return true;
     }
-    int shortlen(TreeNode* root,int s) {
-        if(root==NULL)return s;
-        int l=shortlen(root->left,s+1);
-        int r=shortlen(root->right,s+1);
-        return (l>=r)?r:l;
-    }   
-    int longlen(TreeNode* root,int s,int l) {
-        if(l-s>1)return l;
+    //int shortlen(TreeNode* root,int s) {
+    //    if(root==NULL)return s;
+    //    int l=shortlen(root->left,s+1);
+    //    int r=shortlen(root->right,s+1);
+    //    return (l>=r)?r:l;
+    //}   
+    int longlen(TreeNode* root,int l) {
+        if(l==0)return l;
         if(root==NULL)return l;
-        int l1=longlen(root->left,s,l+1);
-        int r1=longlen(root->right,s,l+1);
-        return (l1>=r1)?l1:r1;
+        int l1=longlen(root->left,l+1);
+        int r1=longlen(root->right,l+1);
+        if(l1>r1)
+        {
+            if((l1-r1)>1) 
+            {return 0;}
+            return l1;
+        }
+        else//if(r1>=l1)
+        {
+            if((r1-l1)>1)
+            {return 0;}
+            return r1;
+        }
     }       
     
 };
