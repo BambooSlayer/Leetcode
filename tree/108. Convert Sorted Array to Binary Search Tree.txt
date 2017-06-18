@@ -26,15 +26,17 @@ public:
         p->val=nums[m];
         if(m-1>=0){
         p->left=sortedArrayToBST(nums,0,m-1);}
+        else{p->left=NULL;}
         if(Len-1>=m+1){
         p->right=sortedArrayToBST(nums,m+1,Len-1);}
+        else{p->right=NULL;}
         return p;
     }
     TreeNode* sortedArrayToBST(vector<int>& nums,int l,int r) {
-        TreeNode *p1;
-        int Len=r-l+1;
-        int m=l+Len/2;
-        if(Len==0){return NULL;}
+        TreeNode *p;
+        //int Len=r-l+1;
+        int m=(l+r+1)/2;
+        ////if(Len==0){return NULL;}
        // else if(Len==1)
        // {
         //    p=(TreeNode *)malloc(sizeof(TreeNode));//为要插入的节点分配
@@ -42,13 +44,15 @@ public:
        //     p->val=nums[0];
       //      return p;
       //  }
-        p1=(TreeNode *)malloc(sizeof(TreeNode));//为要插入的节点分配
+        p=(TreeNode *)malloc(sizeof(TreeNode));//为要插入的节点分配
         //内存空间p指向新插入结点的首地址
-        p1->val=nums[m];
+        p->val=nums[m];
         if(m-1>=l){
-        p1->left=sortedArrayToBST(nums,l,m-1);}
+        p->left=sortedArrayToBST(nums,l,m-1);}
+        else{p->left=NULL;}
         if(r>=m+1){
-        p1->right=sortedArrayToBST(nums,m+1,r);}
-        return p1;
+        p->right=sortedArrayToBST(nums,m+1,r);}
+        else{p->right=NULL;}
+        return p;
     }    
 };
