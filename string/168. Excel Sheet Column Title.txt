@@ -1,0 +1,14 @@
+class Solution {
+public:
+    string convertToTitle(int n) {
+        string title;
+        int N=n,k;
+        while(N>0){
+            k=N%26+64;
+            title.insert(title.begin(),(k==64)?90:k);//在开头插入
+            N=(N-1)/26;
+        }
+        return title;
+    }
+};
+//因为和平时的进制不同：没有0，所以处理的时候很多边界条件需要注意的
