@@ -1,0 +1,42 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasPathSum(TreeNode* root, int sum) {
+        if(root==NULL){
+            return false;
+        }
+        if(root->left!=NULL){
+            if(countSum(root->left,sum,root->val))return true;
+        }
+        if(root->right!=NULL){
+            if(countSum(root->right,sum,root->val))return true;
+        }
+        if(root->right==NULL && root->left==NULL && root->val==sum)return true;
+        else{ return false;}
+        
+        return false;
+    }
+    bool countSum(TreeNode* root,int sum,int sum1){
+        if(root->right==NULL && root->left==NULL){
+            if(sum1+root->val==sum){return true;}
+            else {return false;}
+        }
+        //if(sum1>=sum){return false;}//有负数的……不能这么算
+        if(root->left!=NULL){
+            if(countSum(root->left,sum,sum1+root->val))return true;
+        }
+        if(root->right!=NULL){
+            if(countSum(root->right,sum,sum1+root->val))return true;
+        }    
+        return false;
+    }
+    
+};
