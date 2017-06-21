@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int countPrimes(int n) {
+        vector<bool> count(n-1,false);
+        if(n<2)return 0;
+        int N=sqrt(n);
+        int sum=n-2;//n and 1 are not in count
+        for(int i=2;i<=N;i++)//Sieve of Eratosthenes
+        {
+            
+            for(int i2=i*2;i2<n;i2=i2+i)
+            {
+                if(count[i2])continue;
+                count[i2]=true;
+                sum--;
+            }
+        }
+        return sum;
+    }
+};
