@@ -1,6 +1,33 @@
 class Solution {
 public:
     int rob(vector<int>& nums) {
+        int N=nums.size(),sum1=0,sum2=0,i,flag=0;
+        if(N==0)return 0;
+        if (N==1)return nums[0];
+        
+        for(i=0;i<N;i++)
+        {
+            if(i%2==0)//2*ns
+            {
+                if(flag==1||sum1+nums[i]>sum2){sum1+=nums[i];flag=0;}//对比加上偶数位i大，还是优先考虑上一步（可能加了上一个数）大
+                else 
+                {sum1=sum2;flag=1;}
+            }
+            else
+            {
+                if(flag==1||sum2+nums[i]>sum1){sum2+=nums[i];flag=0;}//对比看，加了i数有没有好处，没有就不加了
+                else 
+                {sum2=sum1;flag=1;}
+            }
+        }
+        return (sum1>=sum2)?sum1:sum2;
+    }
+};
+
+/*
+class Solution {
+public:
+    int rob(vector<int>& nums) {
         int N=nums.size(),sum1=0,sum2=0,i;
         if(N==0)return 0;
         if (N==1)return nums[0];
@@ -21,3 +48,4 @@ public:
         return (sum1>=sum2)?sum1:sum2;
     }
 };
+*/
