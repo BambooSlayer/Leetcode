@@ -1,0 +1,83 @@
+class MyStack {
+private:
+    queue<int> q1,q2;
+    bool flag=true;
+public:
+    
+    /** Push element x onto stack. */
+    void push(int x) {
+        if(flag)q1.push(x);
+        else q2.push(x);
+        return;
+    }
+    
+    /** Removes the element on top of the stack and returns that element. */
+    int pop() {
+        int p;
+        if(flag)
+        {
+            for(int i=q1.size();i>1;i--)
+            {
+                q2.push(q1.front());
+                q1.pop();
+            }
+            p= q1.front();
+            q1.pop();
+        }
+        else
+        {
+            for(int i=q2.size();i>1;i--)
+            {
+                q1.push(q2.front());
+                q2.pop();
+            }
+            p= q2.front();
+            q2.pop();
+        }
+        flag=!flag;
+        return p;
+    }
+    
+    /** Get the top element. */
+    int top() {
+        int p;
+        if(flag){
+            for(int i=q1.size();i>1;i--)
+            {
+                q2.push(q1.front());
+                q1.pop();
+            }
+            p=q1.front();
+            q2.push(p);
+            q1.pop();
+        }
+        else{
+            for(int i=q2.size();i>1;i--)
+            {
+                q1.push(q2.front());
+                q2.pop();
+            }
+            p= q2.front();
+            q2.push(p);
+            q1.pop();
+        }
+        flag=!flag;
+        return p;
+    }
+    
+    /** Returns whether the stack is empty. */
+    bool empty() {
+        if(flag && q1.empty())return true;
+        if(flag==false && q2.empty())return true;
+        return false;
+    }
+};
+
+/**
+ * Your MyStack object will be instantiated and called as such:
+ * MyStack obj = new MyStack();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.top();
+ * bool param_4 = obj.empty();
+ */
