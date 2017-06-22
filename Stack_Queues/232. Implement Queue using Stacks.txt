@@ -1,0 +1,99 @@
+class MyQueue {
+private:    
+        stack<int> s1,s2;
+        bool flag=true;
+public:
+    /** Initialize your data structure here. */
+    MyQueue() {
+
+    }
+    
+    /** Push element x to the back of queue. */
+    void push(int x) {
+        if(flag)
+        {
+            s1.push(x);
+        }
+        else
+        {
+            for(int i=s2.size();i>0;i--)
+            {
+                s1.push(s2.top());
+                s2.pop();
+            }
+            s1.push(x);
+            flag=!flag;
+        }
+        return;
+    }
+    
+    /** Removes the element from in front of queue and returns that element. */
+    int pop() {
+        int p;
+        if(flag)
+        {
+            for(int i=s1.size();i>1;i--)
+            {
+                s2.push(s1.top());
+                s1.pop();
+            }
+            p=s1.top();
+            //s2.push(p);
+            s1.pop();
+            flag=!flag;
+        }
+        else
+        {
+            //for(int i=s2.size();i>1;i--)
+            //{
+            //    s1.push(s2.top());
+            //    s2.pop();
+            //}
+            p=s2.top();
+            //s1.push(p);
+            s2.pop();
+        }
+        //flag=!flag;
+        return p;
+    }
+    
+    /** Get the front element. */
+    int peek() {
+        int p;
+        if(flag)
+        {
+            for(int i=s1.size();i>1;i--)
+            {
+                s2.push(s1.top());
+                s1.pop();
+            }
+            p=s1.top();
+            s2.push(p);
+            s1.pop();
+            flag=!flag;            
+        }
+        else
+        {
+            p=s2.top();
+        }
+        //flag=!flag;
+        return p;
+    }
+    
+    /** Returns whether the queue is empty. */
+    bool empty() {
+        if(flag&&s1.empty())return true;
+        if(!flag&&s2.empty())return true;
+        return false;
+    }
+};
+
+/**
+ * Your MyQueue object will be instantiated and called as such:
+ * MyQueue obj = new MyQueue();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.peek();
+ * bool param_4 = obj.empty();
+ */
+ 
