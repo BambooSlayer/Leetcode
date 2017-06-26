@@ -1,0 +1,53 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<string> binaryTreePaths(TreeNode* root) {
+        vector<string> RTL,*rtl;
+        stringstream str;
+        rtl=&RTL;
+        //if(root==NULL||(root->left==NULL&&root->left==NULL))return RTL;
+        if(root==NULL)return RTL;
+        //str=num2str(root->val);
+        //str<<root->val;
+        //str<<"->";
+        treep(root,rtl,str.str());
+        return RTL;
+    }
+    void treep(TreeNode* root,vector<string> * rtl, string str1){//stringstream str 当传函居然会报错
+        stringstream str;
+        str<<root->val;//add num
+        if(root->left==NULL && root->right==NULL)//判断是不是叶子
+        {
+            str1+=str.str();
+            (*rtl).push_back(str1);
+            return;
+        }
+        str<<"->";
+        str1+=str.str();
+         if(root->left!=NULL)
+        {
+            treep(root->left,rtl,str1);
+        }
+         if(root->right!=NULL)
+        {
+            treep(root->right,rtl,str1);
+        }
+        return;
+    }
+    /*
+    string num2str(double i)
+    {
+            stringstream ss;
+            ss<<i;
+            return ss.str();
+    }
+    */
+};

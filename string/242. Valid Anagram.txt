@@ -1,0 +1,56 @@
+//判断t是不是s的重排
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        int Len=s.length(),ns,nt;
+        string subb;
+        if(t.length()!=Len)return false;
+        vector<bool> che(Len,false);
+        for(int i=0;i<Len;i++)
+        {
+            if(che[i]==true)continue;
+            //subb=s.substr(i,1);
+            ns=i;
+            nt=t.find(s[i],0);
+            if(nt==string::npos){return false;}
+            while(nt!=string::npos&&ns!=string::npos)
+            {
+                che[ns]=true;
+                nt=t.find(s[i],nt+1);
+                ns=s.find(s[i],ns+1);
+            }
+            if(nt!=ns)return false;
+        }
+        return true;
+    }
+};
+//优化效率前：
+/*
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        int Len=s.length(),ns,nt;
+        string subb;
+        if(t.length()!=Len)return false;
+        vector<bool> che(Len,false);
+        for(int i=0;i<Len;i++)
+        {
+            if(che[i]==true)continue;
+            //subb=s.substr(i,1);
+            ns=i;
+            nt=t.find(s[i],0);
+            if(nt==string::npos){return false;}
+            while(nt!=string::npos||ns!=string::npos)
+            {
+                if(nt==string::npos||ns==string::npos)return false;
+                che[ns]=true;
+                nt=t.find(s[i],nt+1);
+                ns=s.find(s[i],ns+1);
+                
+            }
+        }
+        return true;
+    }
+};
+*/

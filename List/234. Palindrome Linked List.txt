@@ -1,0 +1,90 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        if(head==NULL)return true;
+        int fst=head->val,N=0,p,j;
+        ListNode* head1, *headlast,*headnext;
+        head1=head->next;
+        while(head1!=NULL)
+        {
+            N++;//累计层数
+            //headlast=head1;
+            p=head1->val;
+            head1=head1->next;
+        }
+        if(N==0)return true;
+        if(N<=2){
+            if(head->val==p)return true;
+            else return false;
+        }
+        headlast=head;
+        head1=head->next;
+        for(int i=(N-1)/2;i>=1;i--)//为了节省空间和时间，这里中间对半反转前一半
+        {
+            //head1=head1->next;
+            headnext=head1->next;
+            head1->next=headlast;
+            headlast=head1;
+            head1=headnext;
+        }
+        head->next=NULL;
+        if(N%2==0)head1=head1->next;
+            while(head1!=NULL)
+            {
+                if(head1->val!=headlast->val)return false;
+                head1=head1->next;
+                headlast=headlast->next;
+            }
+        return true;
+    }
+};
+/*
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        if(head==NULL)return true;
+        int fst=head->val,N=0,p,j;
+        ListNode* head1, *headlast;
+        head1=head->next;
+        while(head1!=NULL)
+        {
+            N++;//累计层数
+            //headlast=head1;
+            p=head1->val;
+            head1=head1->next;
+        }
+        if(N==0)return true;
+        if(p!=fst)return false;
+        head1=head->next;
+        for(int i=N-2;i>0;i-=2){
+            j=i;
+            fst=head1->val;
+            headlast=head1;
+            while(j--)
+            {
+                headlast=headlast->next;
+            }
+            p=headlast->val;
+            if(p!=fst)return false;
+            head1=head1->next;
+        }
+        return true;
+    }
+};
+*/
