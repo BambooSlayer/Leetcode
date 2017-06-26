@@ -1,0 +1,21 @@
+//二分法的变体
+// Forward declaration of isBadVersion API.
+bool isBadVersion(int version);
+
+class Solution {
+public:
+    int firstBadVersion(int n) {
+        int ver=1,ver_l=1,ver_h=n;
+        while((ver_h-ver_l)>1){
+            ver=ver_h/2+(ver_l+1)/2;
+            if(isBadVersion(ver)==true){ver_h=ver;}
+            else {ver_l=ver+1;}
+        }  
+        if(ver_l<ver_h)
+        {if(isBadVersion(ver_l)==true)return ver_l;
+        else return ver_h;}
+        else
+        {if(isBadVersion(ver_h)==true)return ver_h;
+        else return ver_l;}
+    }
+};
