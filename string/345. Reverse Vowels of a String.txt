@@ -1,0 +1,47 @@
+class Solution {
+public:
+    string reverseVowels(string s) {
+        //a,e,i,o,u  不知道算不算大写？
+        int Len=s.length(),n;
+        vector<int> v;
+        string S=s;
+        //for(int i=0;i<Len;i++){S[i]=tolower(s[i]);}
+        transform(s.begin(),s.end(),S.begin(),::tolower);
+        //transform作用是：将某操作应用于指定范围的每个元素。
+        //S=tolower(s); 这样只能支持单个字母的转换
+        n=S.find("a",0);
+        while(n!=string::npos){
+            v.push_back(n);
+            n=S.find("a",n+1);
+        }
+        n=S.find("e",0);
+        while(n!=string::npos){
+            v.push_back(n);
+            n=S.find("e",n+1);
+        }
+        n=S.find("i",0);
+        while(n!=string::npos){
+            v.push_back(n);
+            n=S.find("i",n+1);
+        }
+        n=S.find("o",0);
+        while(n!=string::npos){
+            v.push_back(n);
+            n=S.find("o",n+1);
+        }
+        n=S.find("u",0);
+        while(n!=string::npos){
+            v.push_back(n);
+            n=S.find("u",n+1);
+        }
+        sort(v.begin(),v.end());
+        char temp;
+        for(int i=v.size()/2-1;i>=0;i--){
+            temp=s.at(v.at(i));
+            s.at(v.at(i))=s[v.at(v.size()-i-1)];
+            s[v.at(v.size()-i-1)]=temp;
+            }
+        return s;
+        
+    }
+};
