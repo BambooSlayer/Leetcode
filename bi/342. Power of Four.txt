@@ -1,0 +1,7 @@
+class Solution {
+public:
+    bool isPowerOfFour(int num) {
+        //不能像上次那样了……因为4不是质数，要改(dalao都用的位运算……和2类似，这种2相关的……)
+        return (num>0)&&((num&(num-1))==0)&&((num&0x55555555)==num);
+    }
+};
