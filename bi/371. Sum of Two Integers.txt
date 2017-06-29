@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int getSum(int a, int b) {
+        int c,d;
+        c=a^b;
+        b=(a&b)<<1;
+        while(b!=0)
+        {
+            a=c;
+            c=a^b;
+            b=(a&b)<<1;
+        }
+        return c;
+    }
+};
