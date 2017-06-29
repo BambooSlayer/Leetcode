@@ -1,0 +1,15 @@
+class Solution {
+public:
+    bool isPerfectSquare(int num) {
+        int N;
+        if(num<0)return false;
+        if(num<=1)return true;
+        for(int n=(num/2>46340)?46340:num/2;n>1;n--)
+        {
+            N=n*n;
+            if(N<num)break;
+            else if(N==num)return true;
+        }
+        return false;
+    }
+};
