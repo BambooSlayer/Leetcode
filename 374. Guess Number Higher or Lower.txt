@@ -1,0 +1,19 @@
+// Forward declaration of guess API.
+// @param num, your guess
+// @return -1 if my number is lower, 1 if my number is higher, otherwise return 0
+int guess(int num);
+
+class Solution {
+public:
+    int guessNumber(int n) {
+        long l=1,h=n;
+        long m;//这里全部改成long才合格了
+        m=(l+h)/2;
+        while(guess((int)m)!=0){
+            if(guess((int)m)>0){l=(int)m+1;}
+            else {h=(int)m-1;}
+            m=(l+h)/2;//(h+l)/2;
+        }
+        return m;
+    }
+};

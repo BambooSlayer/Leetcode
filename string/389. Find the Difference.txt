@@ -1,0 +1,19 @@
+class Solution {
+public:
+    char findTheDifference(string s, string t) {
+        int L=t.length(),n;
+        int l=0,r=L-1;
+        vector<bool> used(L-1,false);
+        for(int i=0;i<L;i++)
+        {
+            n=s.find(t[i],0);
+            if(n==string::npos)return t[i];
+            while(used[n]==true)
+            {
+                n=s.find(t[i],n+1);
+                if(n==string::npos)return t[i];
+            }
+            used[n]=true;
+        }
+    }
+};

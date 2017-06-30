@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) {
+        int n=0,L_m=magazine.length(),L_r=ransomNote.length();
+        if(L_r>L_m)return false;
+        vector<bool> used(L_m,false);
+        for(int i=0;i<L_r;i++)
+        {
+            n=magazine.find(ransomNote[i],0);
+             if(n==string::npos)return false;
+            while(used[n]==true)
+            {
+                n=magazine.find(ransomNote[i],n+1);
+                if(n==string::npos)return false;
+            }
+            used[n]=true;
+        }
+        return true;
+    }
+};

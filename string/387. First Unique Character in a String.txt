@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int firstUniqChar(string s) {
+        int n=0,L=s.length();
+        vector<bool> used(L,false);
+        for(int i=0;i<L;i++){
+            if(used[i]==true)continue;
+            n=s.find(s[i],i+1);
+            if(n==string::npos)return i;
+            else
+            {
+                while(n!=string::npos)
+                {
+                    used[n]=true;
+                    n=s.find(s[i],n+1);
+                }
+            }
+        }
+        return -1;
+    }
+};
