@@ -1,0 +1,35 @@
+class Solution {
+public:
+    string toHex(int num) {
+        int D=0;
+        if(num==0)return "0";
+        if(num<0){num=-num-1;D=1;}//负数的转换容易出错
+        string str;
+        while(num>0){
+            str.insert(str.begin(),OnetoHex(num%16,D));
+                //下面两种需要const char
+            //str+=OnetoHex(num%16);
+            //str.append(1,OnetoHex(num%16));
+            num=num/16;
+        }
+        if(D==1){
+            int Len=8-str.length();
+            string str1(Len,97+5);
+            return str1+str;
+        }
+        //str.insert(str.begin(),OnetoHex(num%16));
+        return str;
+    }
+    char OnetoHex(int num,int D) {
+        if(D==0){
+            if(num<=9)return 48+num;
+	        else return 97+(num-10);
+        }
+        else{
+            
+            if(num<=5)return 97+5-num;
+	        else return 48+9-(num-6);
+
+        }
+            }
+};
