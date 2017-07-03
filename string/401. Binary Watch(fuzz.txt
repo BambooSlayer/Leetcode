@@ -1,0 +1,75 @@
+class Solution {
+private:
+    int a[100] = {0,1,2,4,8,16,32,0,0,0,0,0,0,0};
+public:
+    vector<string> readBinaryWatch(int num) {
+        vector<string> time,*T;
+        T=&time;
+        if(num>8){
+            return time;
+        }
+        int loop=(3<=num)?3:num;
+        for(int i=0;i<=loop;i++){
+            if(num-i>5)continue;
+            if(i==0){TIN(num,T,"0:");continue;}
+            if(i==1){
+                TIN(num-1,T,"1:");
+                TIN(num-1,T,"2:");
+                TIN(num-1,T,"4:");
+                TIN(num-1,T,"8:");
+                continue;}
+            //这一句有misaligned address问题！
+            //if(i==2){TIN(num-2,T,"3:");TIN(num-2,T,"5:");TIN(num,T-2,"9:");TIN(num-2,T,"6:");TIN(num-2,T,"10:");continue;}
+            if(i==2){
+                TIN(num-2,T,"3:");
+                TIN(num-2,T,"5:");
+                TIN(num-2,T,"9:");//原来是这里打错了！！TIN(num,T-2,"9:");//所以说好的排版可以避免不必要的错误啊！
+                TIN(num-2,T,"6:");
+                TIN(num-2,T,"10:");
+                continue;}
+            if(i==3){TIN(num-3,T,"7:");TIN(num-3,T,"11:");continue;}
+        }
+        return time;
+    }
+
+    void TIN(int N,vector<string> * T, string str1){//stringstream str 当传函居然会报错
+        if(N==0){
+            str1+="00";
+            (*T).push_back(str1);
+            return;
+        }
+        
+        int sum,loop;
+        sum=0;loop=N;
+        Loopn(loop,0,sum,T,str1);
+        return;
+    }
+    void Loopn(int loop2,int i,int sum,vector<string> * T, string str1){
+        if(sum>=60)return;
+        if(loop2==0){    
+            stringstream str;
+            if(sum<10){str<<"0";}
+            str<<sum;
+            str1+=str.str();
+            (*T).push_back(str1);
+            return;
+        }
+        for(int ii=i+1;ii<=(7-loop2);ii++){
+           Loopn(loop2-1,ii,sum+a[ii],T,str1);
+        }
+        return;
+    }
+};
+//h  
+//0--1:0 
+//1--4：1(0001),2(0010),4(0100),8(1000)
+//2--5: 3(0011),5(0101),9(1001),6(0110),10(1010),--X12(1100)
+//3--2: 7(0111),11(1011),X(1101,1110)
+//m
+//0--1: 0
+//1--6: 1(0000 01),2(0000 10),4(0001 00),8(0010 00),16(0100 00),32(1000 00)
+//2--6*5/2=15: 3,5,9,17,33;6,10,18,34,12,20,....48(1100 00)
+//3--6*5*4/3/2=20: 7(0001 11),...56(1110 00)
+//4--6*5/2-1=14: 15(0011 11),...--X60(1111 00)
+//5--4: 31(0111 11),47(1011 11),55(1101 11),59(1110 11)
+//6: X

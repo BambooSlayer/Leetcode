@@ -1,0 +1,57 @@
+class Solution {
+public:
+    bool wordPattern(string pattern, string str) {
+        int Len=pattern.length();
+        if(Len==0)return false;
+        if(Len<2)return true;
+        vector<int> spc;
+        str=" "+str+" ";//在前后加上空格方便识别
+        int n=str.find(" ",0);
+        
+        //if(str==" a a ")return true;
+        while(n!=string::npos)
+        {
+            spc.push_back(n);
+            n=str.find(" ",n+1);
+        }
+        if(spc.size()!=(Len+1)){return false;}//size
+        vector<bool> chk(Len,false);//下面越界的原因是我这里居然写反了……//chk(false,Len);
+        int pat=0,pat_old=0,i=0;
+        string sub;
+        while(i<Len)//for(int i=0;i<Len;i++)
+        {
+            sub=str.substr(spc[i],spc[i+1]-spc[i]+1);//对应字段
+            //if(sub==" dog ")return true;
+           // return false;
+            pat=pattern.find(pattern[i],i+1);//下个应该和i相同的
+            if(i<Len && pat==string::npos)
+            {//没有同样的 //如果不加上前面的条件，碰到最后一个时会直接跳false(因为最后一个spc还是碰到了最后一个单词吧)
+                if(str.find(sub,spc[i+1])!=string::npos)return false;
+            }
+            else//有同样的 
+            {
+                pat_old=i;
+                //if(pat==3)return true;
+                
+                while(pat_old<Len-1 && pat!=string::npos)
+                {
+                    //if(spc[0]==2)return false;
+                    if(str.find(sub,spc[pat_old]+1)!=spc[pat])
+                    //if(str.compare(spc[pat],spc[pat+1]-spc[pat]-1,sub)!=0)
+                    //这里注释的会错过str全相同的情况……
+                    {return false;}//这里还是有问题//发现的问题……abc和a会识别成一样……所以把前后面的空格加上吧!
+                    chk.at(pat)=true;
+                    //chk[pat]这句话居然会导致malloc(): memory corruption: 0x00000000016e3890 ***！
+                    //如果改成.at()就会准确报错。所以尽量用at()!
+                    pat_old=pat;
+                    pat=pattern.find(pattern[i],pat+1);
+                }
+            }
+            i++;
+            while((i<=(Len-1))&&chk[i]==true)i++; 
+                      //compare(int pos, int n,const string &s,int pos2,int n2)
+        }
+        return true;//true;
+        
+    }
+};
