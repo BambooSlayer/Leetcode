@@ -1,0 +1,25 @@
+class Solution {
+public:
+    string addStrings(string num1, string num2) {
+        int L1=num1.length(),L2=num2.length(),Lmax=(L1>L2)?L1:L2;
+        //num1.resize(Lmax+1,86);
+        //return num1;
+        //在后面加的///resize(int len,char c);//把字符串当前大小置为len，并用字符c填充不足的部分
+        if(L1<L2)num1.insert(num1.begin(),L2-L1,48);
+        if(L1>L2)num2.insert(num2.begin(),L1-L2,48);
+        //return num1;
+        string sum;
+        char Jnum;
+        int jw=0;
+        for(int i=Lmax-1;i>=0;i--){
+            Jnum=(num1[i]+num2[i])-48+jw;
+            if(Jnum>57){
+                jw=1;
+            }
+            else{jw=0;}
+            sum.insert(sum.begin(),Jnum-jw*10);
+        }
+        if(jw==1)sum.insert(sum.begin(),49);
+        return sum;
+    }
+};

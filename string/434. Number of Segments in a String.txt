@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int countSegments(string s) {
+        int n=s.find(" ",0),nl=-1,sum=0;
+        while(n!=string::npos){
+            if(n-nl>1){
+                sum++;
+            }
+            nl=n;
+            n=s.find(" ",n+1);
+        }
+        if(s.length()-nl>1)sum++;
+        return sum;
+    }
+};

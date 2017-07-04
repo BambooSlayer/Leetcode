@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int longestPalindrome(string s) {
+        int N=0,sum=0,Len=s.length();
+        bool single=false;
+        vector<bool> used(Len,false); 
+        for(int i=0;i<Len;i++){
+            if(used[i]==true)continue;
+            N=s.find(s[i],i+1);
+            if(N==string::npos){single=true;continue;}
+            used[N]=true;
+            sum+=2;
+        }    
+        if(single)sum++;
+        return sum;
+    }
+};
