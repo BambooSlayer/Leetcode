@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+        vector<int> res;
+        int sLen = s.length(), pLen = p.length();
+        int needToFind[26] = {0};
+        for (auto c : p)//用c遍历p
+            //for(auto count : counts)它等价于for(some_iterator p = begin(counts); p != end(counts); ++p)且some_type count = *p。
+            needToFind[c - 'a']++;//用needToFind记录26个字母出现的次数
+        int i = 0, j = 0, cnt = 0; 
+        while(i < sLen) {//i: end, j: start
+            if(needToFind[s[i++] - 'a']-- > 0) //those not in needtofind, will decrease all the time
+                ++cnt;//符合要求，就计数
+            if(cnt == pLen)//表示前面cnt窗口内，有cnt个都符合要求，记录开头j
+                res.push_back(j);
+            if(i - j == pLen && needToFind[s[j++] - 'a']++ >= 0) // >=, not enough//满长度就移动开头j++//开头符号加回来（又是437这个思路？）
+                --cnt;
+        }
+        return res;
+    }
+};
+
+//sliding window
+//从第一次满足pLen之后就一直满足 end - begin == pLen，是一个框定
+//若sliding window长度达到，需要调整begin,如果这个字母是需要的，count--,如果不是，不用减少count
