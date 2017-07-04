@@ -1,0 +1,57 @@
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+        int ls=s.length(),lp=p.length();
+        vector<int> a(1,-1),b;//开头标记
+        //int find_first_not_of(const string &s,int pos = 0) const;
+        int N=s.find_first_not_of(p, 0);
+        while(N!=-1){
+            a.push_back(N);
+            N=s.find_first_not_of(p, N+1);
+        }
+        a.push_back(ls);//最后标记一下
+        vector<int> used(lp,1);//for(int i=lp;i>0;i--)
+        int l,r,pos;
+        for(int i=1;i<a.size();i++){
+            //b.push_back(100+i);
+            if(a[i]-a[i-1]<lp){ 
+                //b.push_back(i);b.push_back(a[i]-a[i-1]);b.push_back(233);
+                continue;
+            }
+            l=a[i-1]+1;
+            r=a[i]-lp;
+            for(int n=l;n<=r;n++)
+            {//分段检查
+                //b.push_back(n+200);
+                //b.push_back(l);b.push_back(n);
+                for(int nn=0;nn<lp;nn++)used[nn]=-1;//重置
+                for(int nn=n;nn<n+lp;nn++){
+                    pos=p.find(s[nn],0);
+                    while(pos!=-1 && used[pos]!=-1)
+                    {//这里出问题！
+                        pos=p.find(s[nn],pos+1);
+                    }
+                    if(pos==-1)
+                    {
+                        continue;
+                    }//范围内都被用光的情况
+                    else 
+                    {
+                        used[pos]=nn;
+                    }
+                    if(find(used.begin(),used.end(),-1)==used.end())
+                    {
+                        b.push_back(n);
+                        while(n<r-1 && s[n]==s[nn+1]){//为循环的节省时间…………
+                            n++;nn++;
+                            b.push_back(nn-lp+1);
+                        }
+                    }
+                }
+            }
+            
+        }
+        return b; 
+        
+    }
+};
