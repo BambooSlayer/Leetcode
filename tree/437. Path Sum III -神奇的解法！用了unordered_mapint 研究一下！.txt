@@ -1,0 +1,29 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+private:
+    unordered_map<int, int> m;
+public:
+    int pathSum(TreeNode* root, int sum) {
+        m[0] = 1;
+        return helper(root, 0, sum);
+    }
+    int helper(TreeNode * root, int val, int sum){
+        if(root == NULL) return 0;
+        val += root->val;
+        int res = m[val - sum];
+        m[val]++;
+        res += helper(root->left, val, sum) + helper(root->right, val, sum);
+        m[val]--;
+        return res;
+    }
+};
+//思路：用val把从头到尾的求和情况保存到map里（存在就标记+1，查找快），到后面直接查，能不能把前面重复段的和减掉来凑出sum。
+//指针走到头，往回收的时候，也把求和情况的统计往回收（就是-1）。

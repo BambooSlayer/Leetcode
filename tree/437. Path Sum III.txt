@@ -1,0 +1,44 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int pathSum(TreeNode* root, int sum) {
+        int sumup=0;
+        if(root==NULL)return 0;
+        sumup+=chk(root,sum);
+        //if(root->val==sum)sumup++;
+        return sumup;
+    }
+    int chk(TreeNode* root,int sum){//定起点的函数
+        int sumup=0;
+        if(root->val==sum)sumup++;
+        if(root->left!=NULL){
+            sumup+=chk(root->left,sum);
+            sumup+=pSum(root->left,sum,root->val);
+        }
+        if(root->right!=NULL){
+            sumup+=chk(root->right,sum);
+            sumup+=pSum(root->right,sum,root->val);
+        }
+        return sumup;
+    }
+    int pSum(TreeNode* root, int sum, int now) {//什么都不管，从起点暴力往下算的函数
+        now+=root->val;
+        int sumup=0;
+        if(now==sum)sumup++;
+        if(root->left!=NULL){
+            sumup+=pSum(root->left,sum,now);//从之前的算          
+        }
+        if(root->right!=NULL){
+            sumup+=pSum(root->right,sum,now);         
+        }
+        return sumup;
+    }
+};
