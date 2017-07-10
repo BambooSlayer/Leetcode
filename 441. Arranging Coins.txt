@@ -1,0 +1,10 @@
+class Solution {
+public:
+    int arrangeCoins(int n) {
+        int N=sqrt(n),G=N*(N+1)/2;
+        while(n>G&&N<65535){N++;G+=N;}//这里需要小心边界！
+        while(n<G){G-=N;N--;}
+        return N;
+        
+    }
+};
