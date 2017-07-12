@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int findRadius(vector<int>& houses, vector<int>& heaters) {
+        int Lh=heaters.size();
+        if(Lh==0)return 2147483647;//?需要考虑吗？ 
+        sort(houses.begin(),houses.end());
+        sort(heaters.begin(),heaters.end());
+        int min=2147483647,now,MAX=0;
+        int j=1;
+        for(int i=0;i<houses.size();i++){
+            
+            if((heaters[j-1]<=houses[i] && houses[i]-heaters[j-1]<MAX)||(heaters[j]>=houses[i] && heaters[j]-houses[i]<MAX))continue;
+            //上面这句可以极高地提高效率
+            j--;
+            for(;j<Lh;j++){
+                if(houses[i]>heaters[j])
+                {
+                    
+                    now=houses[i]-heaters[j];
+                    if(now<min)min=now;
+                }
+                else
+                {
+                    now=heaters[j]-houses[i];
+                    if(now<min)min=now;
+                    break;
+                }
+                
+            }
+            if(min>MAX)MAX=min;
+             min=2147483647;
+        }
+        return MAX;
+    }
+};

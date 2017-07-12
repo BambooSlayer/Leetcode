@@ -1,0 +1,47 @@
+class Solution {
+public:
+    int largestPalindrome(int n) {
+        if(n==1)return 9;
+        if(n==2)return 987;
+        int NUM;
+        unsigned long KK,bit;
+        unsigned long N1,N2,k, sum=0,sum1=0,max=0;
+        int A,B,i,imax;
+        int arr[2*n];
+            KK=pow(10,n-1);
+            for(N1=pow(10,n)-1;N1>=KK*9;N1--){
+                if(N1%10==0)continue;
+                if(max>0)bit=max/(N1)+1;
+                else bit=N1;
+                for(N2=bit;N2<=KK*10-1;N2++){
+                    if(N2%10==0)continue;//最后一位不可能是0！因为第一位不可能是0
+                   // A=(int)((N2%10)*(N1%10));
+                   // if(A==0)continue;        
+                    if((N1%5+N2%2)==0||(N1%2+N2%5)==0)continue;
+                    sum=N1*N2;
+                    sum1=sum;
+                    //if(sum<=max)continue;
+                    memset(arr,0,10);
+                    i=0;
+                    while(sum>9){
+                        arr[i++]=sum%10;
+                        sum/=10;
+                        //ss<<sum%10;
+                        //sum/=10;
+                    }
+                    arr[i++]=sum;
+                    imax=--i;
+                    while(i>=imax/2 && arr[i]==arr[imax-i]){
+                        i--;
+                    }
+                    if(i>=imax/2)continue;
+
+                    if( sum1> max){max=sum1;}
+                    break;
+                }
+                
+            }
+        //}
+        return (int)(max%1337 );
+    }
+};

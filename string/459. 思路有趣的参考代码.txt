@@ -1,0 +1,14 @@
+class Solution {
+public:
+    bool repeatedSubstringPattern(string s) {
+        int n=s.size(),len=0,i=1;
+        if(!n)return false;
+        vector<int>KMPtable(n,0);
+        while(i<n){
+            if(s[i]==s[len])KMPtable[i++]=++len;
+            else if(len!=0)len=KMPtable[len-1];
+            else KMPtable[i++]=0;
+        }
+        return KMPtable[n-1]&&n%(n-KMPtable[n-1])==0;
+    }
+};

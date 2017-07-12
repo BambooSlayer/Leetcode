@@ -1,0 +1,15 @@
+class Solution {
+public:
+    vector<int> constructRectangle(int area) {
+        //找到尽可能相近的两个数，相乘正好等于area，第一个数要比第二个数大。
+        vector<int> out;
+        int i=sqrt(area),j=area%i;
+        while(j>0){
+            i--;
+            j=area%i;
+        }
+        out.push_back(area/i);
+        out.push_back(i);
+        return out;
+    }
+};

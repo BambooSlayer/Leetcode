@@ -1,0 +1,17 @@
+class Solution {
+public:
+    bool repeatedSubstringPattern(string s) {
+        int L=s.length(),j,i;
+        if(L%2==0)i=(L/2);
+        else i=L/3;
+        for(;i>0;i--)
+        {
+            j=i;
+            while(s.find(s.substr(0,i),j)==j){
+                j+=i;
+            }
+            if(j==L)return true;
+        }
+        return false;
+    }
+};
