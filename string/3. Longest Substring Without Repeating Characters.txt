@@ -1,18 +1,18 @@
-//3 Longest Substring Without Repeating Characters
-//ÏÈ´ÓÇ°ÍùºóËã¾àÀë
-//ÔÙ´ÓºóÍùÇ°Ëã³¤¶È
+ï»¿//3 Longest Substring Without Repeating Characters
+//å…ˆä»å‰å¾€åç®—è·ç¦»
+//å†ä»åå¾€å‰ç®—é•¿åº¦
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
         if(s.length()<=1)return s.length();
         vector<int> C(s.length()-1,1);
         int j=0,pos,ends=0;
-        for(int g=0;g<s.length()-1;g++)//·´¹ıÀ´Ïë£ºÎÒÃÇÕÒÏàÍ¬
+        for(int g=0;g<s.length()-1;g++)//åè¿‡æ¥æƒ³ï¼šæˆ‘ä»¬æ‰¾ç›¸åŒ
         {
-            C[g]=s.find(s[g], g+1)-g;//·µ»ØµÄÊÇµ±Ç°´®ÖĞÎ»ÖÃ£¬²»ÊÇËÑÑ°ÆğÊ¼µã¾àÀë
+            C[g]=s.find(s[g], g+1)-g;//è¿”å›çš„æ˜¯å½“å‰ä¸²ä¸­ä½ç½®ï¼Œä¸æ˜¯æœå¯»èµ·å§‹ç‚¹è·ç¦»
         }
         int l=1,now=1;
-        for(int g=s.length()-2;g>=0;g--)//ºÃÏñ¶¯Ì¬¹æ»®£¿
+        for(int g=s.length()-2;g>=0;g--)//å¥½åƒåŠ¨æ€è§„åˆ’ï¼Ÿ
         {
             now++;
             if(C[g]>0)
