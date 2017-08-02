@@ -1,0 +1,31 @@
+//3 Longest Substring Without Repeating Characters
+//先从前往后算距离
+//再从后往前算长度
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        if(s.length()<=1)return s.length();
+        vector<int> C(s.length()-1,1);
+        int j=0,pos,ends=0;
+        for(int g=0;g<s.length()-1;g++)//反过来想：我们找相同
+        {
+            C[g]=s.find(s[g], g+1)-g;//返回的是当前串中位置，不是搜寻起始点距离
+        }
+        int l=1,now=1;
+        for(int g=s.length()-2;g>=0;g--)//好像动态规划？
+        {
+            now++;
+            if(C[g]>0)
+            {
+                if(C[g]<now)
+                {
+                    if(now>l)l=now-1;
+                    now=C[g];
+                }
+            }
+        }
+        if(now>l)l=now;
+        
+        return l;
+    }
+};
