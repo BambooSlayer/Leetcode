@@ -1,0 +1,56 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> findMode(TreeNode* root) {
+        int max=0;
+        int* MAX=&max;
+        vector<int> mode;
+        vector<int>* MODE=&mode;        
+        finding_max(root,MAX);
+        finding_mode(root,max,MODE);
+        
+        //mode.push_back(max);
+        return mode;
+    }
+
+void finding_mode(TreeNode* root, int max,vector<int>* mode) { 
+    if(root==NULL)return;
+    int count=counting(root,root->val,max,mode);//根数据出现次数
+    if(count==max && find((*mode).begin(),(*mode).end(),root->val)==(*mode).end())(*mode).push_back(root->val);//需要查重……
+    return;
+}
+void finding_max(TreeNode* root, int* max) { 
+    if(root==NULL)return;
+    int count=counting(root,root->val,max);//根数据出现次数
+    if(count>*max)*max=count;
+    return;
+}
+int counting(TreeNode* root, int root_num, int * max) { 
+    if(root==NULL)return 0;
+    if(root->val==root_num)return 1+counting(root->left,root_num,max)+counting(root->right,root_num,max);
+    else
+    {
+        finding_max(root,max);//是可能的新数字……可能会重复计算
+        if(root->val>root_num) return counting(root->left,root_num,max);//BST性质，走左边找
+        else return counting(root->right,root_num,max);//BST性质，走右边找
+    }
+}
+int counting(TreeNode* root, int root_num, int max,vector<int>* mode) {
+    if(root==NULL)return 0;
+    if(root->val==root_num)return 1+counting(root->left,root_num,max,mode)+counting(root->right,root_num,max,mode);
+    else
+    {
+        finding_mode(root,max,mode);//是可能的新数字……可能会重复计算
+        if(root->val>root_num) return counting(root->left,root_num,max,mode);//BST性质，走左边找
+        else return counting(root->right,root_num,max,mode);//BST性质，走右边找
+    }   
+}     
+};

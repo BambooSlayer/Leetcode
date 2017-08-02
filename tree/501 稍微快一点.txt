@@ -1,0 +1,58 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> findMode(TreeNode* root) {
+        int max=0,cont=0;
+        int* MAX=&max,*C=&cont;
+        vector<int> mode;
+        //if(!root){return mode;}
+        vector<int>* MODE=&mode;        
+        //finding_max(root,MAX);
+        finding_mode(root,MAX,MODE,C);
+        
+        //if(cont==1){mode.push_back(root->val);}
+        //else 
+        if(cont>0) mode.erase(mode.begin(),mode.end()-cont);
+        //mode.push_back(*C);
+        return mode;
+    }
+
+void finding_mode(TreeNode* root, int* max,vector<int>* mode,int* C) { 
+    if(root==NULL)return;
+    int count=counting(root,root->val,max,mode,C);//根数据出现次数
+    if(count>*max){
+        //(*mode).clear();
+        *max=count;
+        *C=1;
+        (*mode).push_back(root->val);
+    }
+    else if(count==*max){(*mode).push_back(root->val);(*C)++;}
+    else (*mode).insert((*mode).begin(),root->val);//小的往前面插
+    
+    return;
+}
+int counting(TreeNode* root, int root_num, int* max,vector<int>* mode,int* C) {
+    if(root==NULL)return 0;
+    if(root->val==root_num){
+        //root->val=NULL;//这样就分不了左右了，不大好
+        return 1+counting(root->left,root_num,max,mode,C)+counting(root->right,root_num,max,mode,C);
+    }
+    else
+    {
+        if(find((*mode).begin(),(*mode).end(),root->val)==(*mode).end())//查重(需要区分是不是同一个分支……因为是BST所以不可能出现)
+        {
+            finding_mode(root,max,mode,C);//是可能的新数字……可能会重复计算（想办法）
+        }
+        if(root->val>root_num) return counting(root->left,root_num,max,mode,C);//BST性质，走左边找
+        else return counting(root->right,root_num,max,mode,C);//BST性质，走右边找
+    }   
+}     
+};
